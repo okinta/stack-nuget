@@ -2,7 +2,6 @@ variant: fcos
 version: 1.0.0
 passwd:
   users:
-    - name: nuget
     - name: public
 
 systemd:
@@ -16,12 +15,11 @@ systemd:
         Wants=network-online.target
 
         [Service]
-        User=nuget
         TimeoutStartSec=0
         ExecStartPre=-/bin/podman kill nuget
         ExecStartPre=-/bin/podman rm nuget
         ExecStartPre=/bin/podman pull okinta/stack-nuget
-        ExecStart=/bin/podman run -p 8080:8080/tcp --name nuget okinta/stack-nuget
+        ExecStart=/bin/podman run -p 80:8080/tcp --name nuget okinta/stack-nuget
 
         [Install]
         WantedBy=multi-user.target
